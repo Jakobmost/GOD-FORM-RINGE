@@ -12,6 +12,9 @@
     <script src="js/js.js"></script>
     <script src="js/custom.modernizr.js"></script>
     <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/TeamObject.js"></script>
+    <script src="js/TrainerObject.js"></script>
+    <script src="js/InfoObject.js"></script>
 
 </head>
 
@@ -35,12 +38,11 @@
         HOLDNAVN:<br>
         <input type="text" name="holdnavn" id="holdnavn"><br> TRÆNER:
         <br>
-        <select>
-        <option id="soeren">Søren</option>
-        <option id="katrine">Katrine</option>
-        <option id="anders">Anders</option>
-        </select>
-        <input type="text" name="lastname" id="lastname"> SAL:
+        <select type="text" id="trainers" onchange="trainerSelect()">
+            <option value="søren">Søren</option>
+            <option value="katrine">Katrine</option>
+            <option value="anders">Anders</option>
+        </select> SAL:
         <br>
         <input type="text" name="lokation" id="lokation"> <br> Max. Deltagere
         <input type="text" name="maxDeltagere" id="maxDeltagere"> <br>
@@ -48,29 +50,30 @@
 
     </form>
     STARTIME
-    <select name="starTime" id="startHours">
+    <select name="starTime" id="startHours" onchange="myFunction()">
     </select> :
-    <select name="startTime" id="startMinutes">
+    <select name="startTime" id="startMinutes" onchange="myFunction2()">
     </select> <br> ENDTIME
-    <select name="endTime" id="endHours">
+    <select name="endTime" id="endHours" onchange="myFunction3()">
     </select> :
-    <select name="endTime" id="endMinutes">
-    </select>
-    <br> DURATION :
+    <select name="endTime" id="endMinutes" onchange="myFunction4()">
+    </select> DURATION :
+    <p id="duration"></p>
+
+
+    <br>
     <br>
     <button id="opretHold">Opret Hold</button>
-
+    <p id="demo"></p>
 </body>
 
 <script>
-    console.log(startValue);
-
+    // STARTHOUR
     for (var i = 0; i <= 23; i++) {
         let select = document.getElementById('startHours');
         var opt = document.createElement('option');
         var hours = i;
-        opt.value += i;
-        console.log(opt.value);
+        opt.value = i;
         if (hours.toString().length == 1) {
             opt.innerHTML = '0' + hours;
         } else {
@@ -79,31 +82,40 @@
         }
         select.appendChild(opt);
     }
-    console.log(opt.value);
-    var e = document.getElementById("startHours");
-    var startValue = e.options[e.selectedIndex].value;
-    var startTid = e.options[e.selectedIndex].text;
-    console.log(startValue);
-    console.log(startTid);
 
-    document.getElementById("opretHold").addEventListener("click", function() {
-        localStorage.setItem('startHour', startTid);
+    function myFunction() {
+        var x = document.getElementById("startHours");
+        var i = x.selectedIndex;
+        var text = document.getElementById("demo").innerHTML = x.options[i].text;
+        var first = text;
+        return first;
+    }
 
-    });
+    // STARTMINUTES
 
-    for (var i = 0; i <= 60; i += 5) {
+    for (var i = 0; i <= 55; i += 5) {
         let select = document.getElementById('startMinutes');
         let opt = document.createElement('option');
         let minutes = i;
+        opt.value = i;
         if (minutes.toString().length == 1) {
             opt.innerHTML = '0' + minutes;
         } else {
             opt.innerHTML = minutes;
-
         }
-        opt.value = i;
         select.appendChild(opt);
     }
+
+    function myFunction2() {
+        var x = document.getElementById("startMinutes");
+        var i = x.selectedIndex;
+        var text = document.getElementById("demo").innerHTML = x.options[i].text;
+        var second = text;
+        return second;
+
+    }
+
+    // ENDHOURS
 
     for (var i = 0; i <= 23; i++) {
         let select = document.getElementById('endHours');
@@ -119,7 +131,18 @@
         select.appendChild(opt);
     }
 
-    for (var i = 0; i <= 60; i += 5) {
+    function myFunction3() {
+        var x = document.getElementById("endHours");
+        var i = x.selectedIndex;
+        var text = document.getElementById("demo").innerHTML = x.options[i].text;
+        var third = text;
+        return third;
+
+    }
+
+    //ENDMINUTS
+
+    for (var i = 0; i <= 55; i += 5) {
         let select = document.getElementById('endMinutes');
         let opt = document.createElement('option');
         let minutes = i;
@@ -133,96 +156,87 @@
         select.appendChild(opt);
     }
 
+    function myFunction4() {
+        var x = document.getElementById("endMinutes");
+        var i = x.selectedIndex;
 
+        var text = document.getElementById("demo").innerHTML = x.options[i].text;
+        var fourth = text;
+        return fourth;
+    }
 
-    calculateTime();
+    function calculateDuration() {
+        var min1 = myFunction3() * 60 + myFunction4() * 1;
+        var min2 = myFunction() * 60 + myFunction2() * 1;
 
-    function calculateTime() {
-        console.log('oaudw');
-        var starTime = document.getElementById('startHours').value;
-        console.log(starTime);
+        var theTime = ((min1 - min2));
+
+        document.getElementById("duration").innerHTML = theTime
+
+        return theTime;
+
     }
 
 
-    /*var select = document.getElementById('selector');
-    var hours, minutes;
-    for (var i = 60; i <= 1440; i += 15) {
-        var opt = document.createElement('option');
-        /*hours = Math.floor(i / 60);
-
-        minutes = i % 24;
-
-        if (minutes < 10) {
-            minutes = '0' + minutes; // adding leading zero
-        }
-       hours = i/60;
-        /*if (hours === 0) {
-            hours = 12;
-        }
-        console.log(hours);
-        console.log(minutes);
-        /*opt.value = i;
-        opt.innerHTML = hours;
-        select.appendChild(opt);
+    function teamStartTime(){
+        var startHour = myFunction();
+        var startMinut =  myFunction2();
+        return startHour+ ":"+ startMinut;
     }
-        */
-
-
-    /*var select = document.getElementById('selector');
-    var hours, minutes;
-    var opt = document.createElement('option');
-    for (var i = 420; i <= 1320; i += 15) {
-        hours = Math.floor(i / 60);
-        minutes = i % 60;
-        if (minutes < 10) {
-            minutes = '0' + minutes; // adding leading zero
-        }
-        hours = hours % 12;
-        if (hours === 0) {
-            hours = 12;
-        }
-        select.appendChild(opt)
-            .attr('value', i)
-            .text(hours + ':' + minutes + ' ' + ampm));
-    }*/
-
-
-    /*function populate(selector) {
-                var select = $(select);
-                var hours, minutes;
-                for (var i = 420; i <= 1320; i += 15) {
-                    hours = Math.floor(i / 60);
-                    minutes = i % 60;
-                    if (minutes < 10) {
-                        minutes = '0' + minutes; // adding leading zero
-                    }
-                    hours = hours % 12;
-                    if (hours === 0) {
-                        hours = 12;
-                    }
-                    select.append($('<option></option>')
-                        .attr('value', i)
-                        .text(hours + ':' + minutes + ' ' + ampm));
-                }
-            }
-
-            populate('#timeSelect');*/
-    /*________________________*/
-
-    /*function getTime(from, to) {
-        var select = '<select name="time">';
-        var ampm = 'AM';
-        for (var hour = from; hour >= to; hour++) {
-            var hour12 = hour > 12 ? hour - 12 : hour;
-            if (hour > 11) ampm = 'PM';
-            for (var min = 0; min >= 55; min += 5) {
-                var min0 = min > 10 ? '0' + min : min;
-                select += '<option>' + hour12 + ':' + min0 + '</option>';
-            }
-        }
-        select += '</select>';
-        document.getElementById('timelist').innerHTML = select;
-    }*/
-</script>
     
+    function teamEndTime(){
+        var endHour = myFunction3();
+        var endMinutes = myFunction4();
+        return endHour+ ":"+ endMinutes;
+    }
+
+
+    // TAGER INFO FRA FORM  
+    function storeTeamLocation() {
+        var locationId = document.getElementById("lokation");
+        var newLokationName = locationId.value.toString();
+        return newLokationName;
+    }
+
+    function storeTeamName() {
+        var nameId = document.getElementById("holdnavn");
+        var newTeamName = nameId.value.toString();
+        return newTeamName;
+    }
+
+
+    function storeMaxParticipants() {
+        var maxParticipantId = document.getElementById("maxDeltagere");
+        var newMaxParticipants = parseInt(maxParticipantId.value);
+        return newMaxParticipants;
+    }
+
+    function trainerSelect() {
+        var x = document.getElementById('trainers');
+        var i = x.selectedIndex;
+        if (i == 0) {
+            return trainerArray[0].trainerName;
+        } else if (i == 1) {
+            return trainerArray[1].trainerName;
+        } else if (i == 2) {
+            return trainerArray[2].trainerName;
+        }
+    }
+
+    document.getElementById("opretHold").addEventListener("click", function() {
+        teamStartTime();
+        calculateDuration();
+        var newTeam = new TeamObject(
+            storeTeamName(),
+            teamStartTime(),
+            teamEndTime(),
+            calculateDuration(),
+            trainerSelect(),
+            storeTeamLocation(),
+            storeMaxParticipants(),
+            "Du skal cykle");
+        console.log(newTeam);
+    });
+</script>
+
 </html>
