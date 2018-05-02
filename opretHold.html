@@ -4,13 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/css.css">
-    <link rel="stylesheet" href="css/foundation.css">
-    <title></title>
 
-    <link rel="stylesheet" href="css/css.css">
     <link rel="stylesheet" href="css/foundation.css">
-    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/opretHold.css">
+    <link rel="stylesheet" href="css/generel.css">
+
+
     <script src="js/js.js"></script>
     <script src="js/custom.modernizr.js"></script>
     <script src="js/jquery-1.12.4.js"></script>
@@ -23,6 +22,7 @@
 <body>
     <header>
         <ul class="medium-12 topmenu">
+
             <li>MENU <img src="pictures/dropdown2.png"></li>
             <li><img src="pictures/godFormLogo.png"></li>
             <li class="menu"><a href="index.html">FORSIDE</a></li>
@@ -35,38 +35,74 @@
             </div>
         </ul>
     </header>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="wrapper large-12 small-12">
+        <div class="row">
+            <div class="small-10 small-offset-1 large-8 large-offset-2">
 
-    <form>
-        HOLDNAVN:<br>
-        <input type="text" name="holdnavn" id="holdnavn"><br> TRÆNER:
-        <br>
-        <select type="text" id="trainers" onchange="trainerSelect()">
+                <input type="text" name="holdnavn" id="holdnavn" placeholder="HOLDNAVN">
+                <select type="text" id="trainers" onchange="trainerSelect()">
+            <option value="" disabled selected>VÆLG TRÆNER</option>
             <option value="søren">Søren</option>
             <option value="katrine">Katrine</option>
             <option value="anders">Anders</option>
-        </select> SAL:
-        <br>
-        <input type="text" name="lokation" id="lokation"> <br> Max. Deltagere
-        <input type="text" name="maxDeltagere" id="maxDeltagere"> <br>
+        </select>
+                <input type="text" name="lokation" id="lokation" placeholder="SAL">
+                <input type="text" name="maxDeltagere" id="maxDeltagere" placeholder="MAKS DELTAGERE">
+                <textarea rows="5" cols="50" type="text" name="beskrivelse" id="description" placeholder="HOLD BESKRIVELSE"></textarea>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-10 small-offset-1 large-8 large-offset-2">
+                <div class="startTid">
+                    <p>STARTTID</p>
+
+                    <select name="starTime" id="startHours" onchange="myFunction()">
+        </select> :
+                    <select name="startTime" id="startMinutes" onchange="myFunction2()">
+        </select>
+                </div>
+                <div class="slutTid">
+                    <p>SLUTTID</p>
+
+                    <select name="endTime" id="endHours" onchange="myFunction3()">
+        </select> :
+                    <select name="endTime" id="endMinutes" onchange="myFunction4()">
+        </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-10 small-offset-1 large-8 large-offset-2">
+                <div class="varighed">
+                    <p>VARIGHED</p>
+                    <span id="duration"></span> min.
+                </div>
+                <div class="timePick">
 
 
-    </form>
-    STARTIME
-    <select name="starTime" id="startHours" onchange="myFunction()">
-    </select> :
-    <select name="startTime" id="startMinutes" onchange="myFunction2()">
-    </select> <br> ENDTIME
-    <select name="endTime" id="endHours" onchange="myFunction3()">
-    </select> :
-    <select name="endTime" id="endMinutes" onchange="myFunction4()">
-    </select> DURATION :
-    <p id="duration"></p>
+                    <input class="checks" id="monday" type="checkbox"> Mandag <br>
+                    <input class="checks" id="tuesdag" type="checkbox"> Tirsdag <br>
+                    <input class="checks" id="wednesday" type="checkbox"> Onsdag <br>
+                    <input class="checks" id="thursday" type="checkbox"> Torsdag <br>
+                    <input class="checks" id="friday" type="checkbox"> Fredag <br>
+                    <input class="checks" id="saturday" type="checkbox"> Lørdag <br>
+                    <input class="checks" id="sunday" type="checkbox"> Søndag<br>
 
-
-    <br>
-    <br>
-    <button id="opretHold">Opret Hold</button>
-    <p id="demo"></p>
+                    <div class="hverUge">
+                        <input id="eachWeek" type="checkbox" class="eachWeek"> Hver Uge
+                    </div>
+                </div>
+                <div class="opretHold">
+                    <button id="opretHold">Opret Hold</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 <script>
@@ -88,7 +124,7 @@
     function myFunction() {
         var x = document.getElementById("startHours");
         var i = x.selectedIndex;
-        var text = document.getElementById("demo").innerHTML = x.options[i].text;
+        var text = x.options[i].text;
         var first = text;
         return first;
     }
@@ -111,7 +147,7 @@
     function myFunction2() {
         var x = document.getElementById("startMinutes");
         var i = x.selectedIndex;
-        var text = document.getElementById("demo").innerHTML = x.options[i].text;
+        var text = x.options[i].text;
         var second = text;
         return second;
 
@@ -136,7 +172,7 @@
     function myFunction3() {
         var x = document.getElementById("endHours");
         var i = x.selectedIndex;
-        var text = document.getElementById("demo").innerHTML = x.options[i].text;
+        var text = x.options[i].text;
         var third = text;
         return third;
 
@@ -161,8 +197,7 @@
     function myFunction4() {
         var x = document.getElementById("endMinutes");
         var i = x.selectedIndex;
-
-        var text = document.getElementById("demo").innerHTML = x.options[i].text;
+        var text = x.options[i].text;
         var fourth = text;
         return fourth;
     }
@@ -180,16 +215,16 @@
     }
 
 
-    function teamStartTime(){
+    function teamStartTime() {
         var startHour = myFunction();
-        var startMinut =  myFunction2();
-        return startHour+ ":"+ startMinut;
+        var startMinut = myFunction2();
+        return startHour + ":" + startMinut;
     }
-    
-    function teamEndTime(){
+
+    function teamEndTime() {
         var endHour = myFunction3();
         var endMinutes = myFunction4();
-        return endHour+ ":"+ endMinutes;
+        return endHour + ":" + endMinutes;
     }
 
 
@@ -210,19 +245,19 @@
     function storeMaxParticipants() {
         var maxParticipantId = document.getElementById("maxDeltagere");
         var newMaxParticipants = parseInt(maxParticipantId.value);
-        
+
         return newMaxParticipants;
     }
 
     function trainerSelect() {
         var x = document.getElementById('trainers');
-        var i = x.selectedIndex;
+        var i = x.selectedIndex - 1;
         return trainerArray[i].trainerName;
-        
+
     }
 
     document.getElementById("opretHold").addEventListener("click", function() {
-        
+
         var newTeam = new TeamObject(
             storeTeamName(),
             teamStartTime(),
